@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 自定义配色 -->
+    <!--<color name="colorPrimary">#6f18c7</color>-->
+    <!--<color name="colorPrimaryDark">#631aab</color>-->
+    <!--<color name="colorPrimaryPale">#8566da</color>-->
+    <!--<color name="colorAccent">#4aa2f3</color>-->
+
+    <!-- 官方建议 -->
+    <color name="colorPrimary">#673ab7</color>
+    <color name="colorPrimaryDark">#512da8</color>
+    <color name="colorPrimaryPale">#7e57c2</color>
+    <color name="colorAccent">#4aa2f3</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!-- 对比度：默认87%，最小54% -->
+    <color name="text_main">#404040</color>
+    <color name="text_black_min">#9a9a9a</color>
+</resources>

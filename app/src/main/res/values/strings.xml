@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Puncher</string>
+
+    <string name="append">append</string>
+    <string name="new_leave">请假</string>
+    <string name="new_out_duty">外勤</string>
+    <string name="i_started">我发起的</string>
+    <string name="i_examine">我审核的</string>
+    <!--<string name=""></string>-->
+
+    <string name="hour_h">h</string>
+    <string name="user_name_default">张坚强</string>
+
+    <!-- 抽屉菜单 -->
+    <string name="present_weekly">到勤天数</string>
+    <string name="punish_cash_weekly">本周累计罚款</string>
+    <string name="late">迟到</string>
+    <string name="punch_false">没打卡</string>
+    <string name="punch_out_false">没打卡</string>
+    <string name="out_duty">外勤</string>
+    <string name="sick_leave">病假</string>
+    <string name="personal_leave">事假</string>
+    <string name="logout">切换账号</string>
+    <string name="exit">退出应用</string>
+    <!--<string name=""></string>-->
+</resources>

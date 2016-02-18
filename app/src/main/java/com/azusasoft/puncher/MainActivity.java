@@ -1,60 +1,93 @@
 package com.azusasoft.puncher;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
+
+import com.azusasoft.puncher.framework.BaseActivity;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+import static com.azusasoft.puncher.utils.UtilMethod.fastLog;
+
+public class MainActivity extends BaseActivity {
     private Context context;
     private NavigationView navigationView;
-
-
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.context = this;
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         this.navigationView = (NavigationView) findViewById(R.id.left_drawer_container);
-//        initDrawerMenu();
+        this.drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        setSwipeBackEnable(false);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        initToolBar(toolbar);
+        initDrawerToggle();
+
+
+        //修改字体
+//        TextView dayWeekText = (TextView) findViewById(R.id.day_of_week);
+//        TextView dateText    = (TextView) findViewById(R.id.main_date);
+        TextView timeText = (TextView) findViewById(R.id.time_text);
+        Typeface robotoThin = Typeface.createFromAsset(context.getAssets(),
+                "fonts/Roboto-Thin.ttf"); //use this.getAssets if you are calling from an Activity
+        Typeface robotoRegular = Typeface.createFromAsset(context.getAssets(),
+                "fonts/Roboto-Regular.ttf");
+        timeText.setTypeface(robotoThin);
+//        dayWeekText.setTypeface(robotoThin);
+//        dateText.setTypeface(robotoRegular);
 
 //        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 //        drawerLayout.closeDrawer(GravityCompat.START);
     }
 
-    private ArrayList<String> weeklyDetail = new ArrayList<>();
-    private final int SUMMARIZE = 0;
-    private final int WEEKLY_DETAIL = 1;
-    private final int EXIT_ITEM = 2;
+    private void initDrawerToggle(){
+        mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0){
+            @Override public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+            @Override public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+        };
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        drawerLayout.setDrawerListener(mDrawerToggle);
+    }
 
-    private void initDrawerMenu(){
-        Menu localMenu;
-        if(this.navigationView!=null && this.navigationView.getMenu()!=null){
-            localMenu = this.navigationView.getMenu();
-            localMenu.clear();
-            localMenu.add(SUMMARIZE,0,0,"周到勤天数").setIcon(R.drawable.ic_date_present_black);
-            localMenu.add(SUMMARIZE,1,1,"本周累计罚款").setIcon(R.drawable.ic_punish_black);
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
 
-            localMenu.add(WEEKLY_DETAIL, 2, 2, "迟到");
-            localMenu.add(WEEKLY_DETAIL, 3, 3, "没打卡");
-            localMenu.add(WEEKLY_DETAIL, 4, 4, "没签退");
-            localMenu.add(WEEKLY_DETAIL, 5, 5, "外勤");
-            localMenu.add(WEEKLY_DETAIL, 6, 6, "病假");
-            localMenu.add(WEEKLY_DETAIL, 7, 7, "事假");
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggles
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
 
-            localMenu.add(EXIT_ITEM,8,8,"切换账号").setIcon(R.drawable.ic_run);
-            localMenu.add(EXIT_ITEM,9,9,"退出应用").setIcon(R.drawable.exit);
-
-
-        }
+    public void onCardClick(View view){
+        fastLog("click");
     }
 
     /**

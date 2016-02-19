@@ -7,10 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar" >
+    <style name="AppTheme.NoActionBar" >
+        <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowSoftInputMode">adjustPan</item>
     </style>
     <!-- Activity切换时不使用左右滑动 -->
@@ -23,8 +23,8 @@
         <item name="android:windowAnimationStyle">@style/animation_translucent_translate</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark" />
-    <style name="AppTheme.PopupOverlay" parent="AlertDialog.AppCompat.Light" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <!--<style name="AppTheme.PopupOverlay" parent="AlertDialog.AppCompat.Light" />-->
     <!-- Activity切换动画 -->
     <!-- 左右滑动 -->

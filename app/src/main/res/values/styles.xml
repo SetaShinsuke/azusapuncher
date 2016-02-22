@@ -8,7 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="AppTheme.NoActionBar" >
-        <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowSoftInputMode">adjustPan</item>
@@ -18,7 +17,7 @@
         <item name="android:windowAnimationStyle">@style/animation_translucent_none_fade</item>
     </style>
     <!-- 切换动画左右滑动 -->
-    <style name="AppSlideTheme">
+    <style name="AppSlideTheme" parent="AppTheme.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@style/animation_translucent_translate</item>
     </style>

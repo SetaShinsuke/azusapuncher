@@ -5,7 +5,8 @@
     >
 
     <!-- 本周概况 -->
-    <group android:id="@+id/summarize_group">
+    <group android:id="@+id/summarize_group"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/present_weekly"
             android:title="@string/present_weekly"
@@ -19,7 +20,8 @@
     </group>
 
     <!-- 本周详情 -->
-    <group android:id="@+id/detail_group">
+    <group android:id="@+id/detail_group"
+        android:checkableBehavior="single">
         <item
             android:title="@string/late"
             />
@@ -41,9 +43,10 @@
     </group>
 
     <!-- 退出 -->
-    <group android:id="@+id/exit_group">
+    <group android:id="@+id/exit_group"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/logout_btn_btn"
+            android:id="@+id/logout_btn"
             android:title="@string/logout"
             android:icon="@drawable/ic_run"
             />

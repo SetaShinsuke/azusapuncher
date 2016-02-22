@@ -1,33 +1,31 @@
-package com.azusasoft.puncher;
+package com.azusasoft.puncher.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.azusasoft.puncher.R;
 import com.azusasoft.puncher.framework.BaseActivity;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 
 import static com.azusasoft.puncher.utils.UtilMethod.fastLog;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
     private Context context;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
+    private NavigationView.OnNavigationItemSelectedListener onDrawerMenuClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +34,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         this.navigationView = (NavigationView) findViewById(R.id.left_drawer_container);
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView.setNavigationItemSelectedListener(this);
 
         setSwipeBackEnable(false);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -88,6 +87,20 @@ public class MainActivity extends BaseActivity {
 
     public void onCardClick(View view){
         fastLog("click");
+    }
+
+    /**
+     * 点击Drawer Menu
+     * */
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logout_btn:
+                Intent intent = new Intent(this,LoginActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return true;
     }
 
     /**

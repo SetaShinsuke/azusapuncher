@@ -5,7 +5,7 @@
     <string name="new_leave">请假</string>
     <string name="new_out_duty">外勤</string>
     <string name="i_started">我发起的</string>
-    <string name="i_examine">我审核的</string>
+    <string name="i_verified">我审核的</string>
     <!--<string name=""></string>-->
 
     <string name="hour_h">h</string>

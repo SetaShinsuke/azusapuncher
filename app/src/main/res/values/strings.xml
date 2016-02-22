@@ -16,11 +16,17 @@
     <string name="punish_cash_weekly">本周累计罚款</string>
     <string name="late">迟到</string>
     <string name="punch_false">没打卡</string>
-    <string name="punch_out_false">没打卡</string>
+    <string name="punch_out_false">没签退</string>
     <string name="out_duty">外勤</string>
     <string name="sick_leave">病假</string>
     <string name="personal_leave">事假</string>
     <string name="logout">切换账号</string>
     <string name="exit">退出应用</string>
     <!--<string name=""></string>-->
+
+    <!-- 登录 -->
+    <string name="account">账号</string>
+    <string name="password">密码</string>
+
+
 </resources>

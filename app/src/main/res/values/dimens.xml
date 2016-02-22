@@ -24,4 +24,11 @@
     <dimen name="list_icon_margin_left">72dp</dimen>
     <dimen name="divider_size">1dp</dimen>
     <dimen name="drawer_menu_icon_size">22dp</dimen>
+
+    <!-- 登录 -->
+    <dimen name="logo_frame_size">200dp</dimen>
+    <dimen name="logo_frame_thick">15dp</dimen>
+    <dimen name="logo_frame_thin">1dp</dimen>
+    <dimen name="login_text_size">16sp</dimen>
+    <dimen name="login_edit_text_margin">60dp</dimen>
 </resources>

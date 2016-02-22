@@ -8,7 +8,9 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.azusasoft.puncher.R;
+import com.azusasoft.puncher.events.ExitEvent;
 
+import de.greenrobot.event.EventBus;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.Utils;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
@@ -27,6 +29,7 @@ public class BaseActivity extends AppCompatActivity implements SwipeBackActivity
         super.onCreate(savedInstanceState);
         mHelper = new SwipeBackActivityHelper(this);
         mHelper.onActivityCreate();
+        EventBus.getDefault().register(this);
     }
 
     protected void initToolBar(Toolbar toolbar){
@@ -73,7 +76,7 @@ public class BaseActivity extends AppCompatActivity implements SwipeBackActivity
         getSwipeBackLayout().scrollToFinishActivity();
     }
 
-    private void exitThis(){
+    protected void exitThis(){
         super.onBackPressed();
     }
 
@@ -81,5 +84,11 @@ public class BaseActivity extends AppCompatActivity implements SwipeBackActivity
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
         return typedValue.data;
+    }
+
+    public void onEvent(ExitEvent exitEvent){
+        if(exitEvent.exitType.equals(ExitEvent.EXIT_TYPE.EXIT)){
+            this.finish();
+        }
     }
 }

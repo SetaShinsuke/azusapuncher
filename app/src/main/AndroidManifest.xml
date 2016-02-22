@@ -22,7 +22,7 @@
 
         <!-- 登录 -->
         <activity android:name=".activities.LoginActivity"
-            android:theme="@style/AppSlideTheme">
+            android:theme="@style/LoginTheme">
         </activity>
 
         <!-- 申请请假 -->

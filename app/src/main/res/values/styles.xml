@@ -7,15 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="AppTheme.NoActionBar" >
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowSoftInputMode">adjustPan</item>
     </style>
+
     <!-- Activity切换时不使用左右滑动 -->
     <style name="AppNoneFadeTheme" parent="AppTheme.NoActionBar">
         <item name="android:windowAnimationStyle">@style/animation_translucent_none_fade</item>
     </style>
+
     <!-- 切换动画左右滑动 -->
     <style name="AppSlideTheme" parent="AppTheme.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
@@ -35,6 +38,13 @@
     <style name="animation_translucent_none_fade" parent="@android:style/Animation.Translucent">
         <item name="android:windowEnterAnimation">@anim/fade_none</item>
         <item name="android:windowExitAnimation">@anim/fade_none</item>
+    </style>
+
+    <!-- 登陆页主题：改配色 -->
+    <style name="LoginTheme" parent="AppSlideTheme">
+        <item name="colorPrimary">@color/azusa_color</item>
+        <item name="colorPrimaryDark">@color/azusa_color_dark</item>
+        <item name="colorAccent">@color/azusa_color_pale</item>
     </style>
 
 
@@ -84,6 +94,19 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:alpha">0.87</item>
         <item name="android:gravity">center_vertical</item>
+    </style>
+
+
+    <!-- 登陆页输入框 -->
+    <style name="login_edit_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/login_edit_text_margin</item>
+        <item name="android:layout_marginRight">@dimen/login_edit_text_margin</item>
+        <item name="android:textColorHint">@color/text_black_min</item>
+        <item name="android:textColor">@color/card_text_btn</item>
+        <item name="android:textSize">@dimen/login_text_size</item>
+        <item name="android:singleLine">true</item>
     </style>
 
 </resources>

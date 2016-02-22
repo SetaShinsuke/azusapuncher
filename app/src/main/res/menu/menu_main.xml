@@ -21,7 +21,7 @@
                 android:title="@string/i_started"
                 />
             <item
-                android:id="@+id/i_examine"
+                android:id="@+id/i_verified"
                 android:title="@string/i_verified"
                 android:visible="true"
                 />

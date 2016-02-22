@@ -31,6 +31,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.context = this;
+
+        Intent intent = new Intent(this,LoginActivity.class);
+        context.startActivity(intent);
+
         setContentView(R.layout.activity_main);
         this.navigationView = (NavigationView) findViewById(R.id.left_drawer_container);
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -43,19 +47,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
         //修改字体
-//        TextView dayWeekText = (TextView) findViewById(R.id.day_of_week);
-//        TextView dateText    = (TextView) findViewById(R.id.main_date);
         TextView timeText = (TextView) findViewById(R.id.time_text);
         Typeface robotoThin = Typeface.createFromAsset(context.getAssets(),
                 "fonts/Roboto-Thin.ttf"); //use this.getAssets if you are calling from an Activity
         Typeface robotoRegular = Typeface.createFromAsset(context.getAssets(),
                 "fonts/Roboto-Regular.ttf");
         timeText.setTypeface(robotoThin);
-//        dayWeekText.setTypeface(robotoThin);
-//        dateText.setTypeface(robotoRegular);
-
-//        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-//        drawerLayout.closeDrawer(GravityCompat.START);
     }
 
     private void initDrawerToggle(){
@@ -94,10 +91,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
      * */
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        if(item.getGroupId()==R.id.detail_group){
+            Intent intent = new Intent(this,AllRecordActivity.class);
+            context.startActivity(intent);
+            return true;
+        }
         switch (item.getItemId()){
             case R.id.logout_btn:
                 Intent intent = new Intent(this,LoginActivity.class);
-                startActivity(intent);
+                context.startActivity(intent);
                 break;
         }
         return true;
@@ -110,5 +112,31 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()){
+            case R.id.new_leave:
+                intent = new Intent(this,NewLeaveActivity.class);
+                context.startActivity(intent);
+                return true;
+            case R.id.new_out:
+                intent = new Intent(this,NewOutDutyActivity.class);
+                context.startActivity(intent);
+                return true;
+            case R.id.i_started:
+                intent = new Intent(this,LeaveHistoryActivity.class);
+                context.startActivity(intent);
+                return true;
+            case R.id.i_verified:
+                intent = new Intent(this,VerifyHistoryActivity.class);
+                context.startActivity(intent);
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

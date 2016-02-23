@@ -8,7 +8,7 @@ import android.view.View;
 import com.azusasoft.puncher.R;
 import com.azusasoft.puncher.events.ExitEvent;
 import com.azusasoft.puncher.framework.BaseActivity;
-import com.azusasoft.puncher.utils.UtilMethod;
+import com.azusasoft.puncher.utils.OnClickChecker;
 
 import de.greenrobot.event.EventBus;
 
@@ -19,6 +19,7 @@ import de.greenrobot.event.EventBus;
 public class LoginActivity extends BaseActivity {
 
     private static long DOUBLE_CLICK_TIME = 0L;
+    private OnClickChecker onClickChecker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +27,16 @@ public class LoginActivity extends BaseActivity {
 //        UtilMethod.initEmptyActivity(this);
         setContentView(R.layout.activity_login);
         setSwipeBackEnable(false);
+        this.onClickChecker = new OnClickChecker();
     }
 
 
     public void onLoginClick(View view){
+        //TODO:防止重复点击
+        if( onClickChecker.isClickPrevent("login")){
+            return;
+        }
+        onClickChecker.prevent("login");
         Snackbar snackbar = Snackbar.make(findViewById(R.id.azusa_logo), "登录中...", Snackbar.LENGTH_SHORT);
         final Snackbar snackbar2 = Snackbar.make(findViewById(R.id.azusa_logo), "登录成功!", Snackbar.LENGTH_SHORT);
         snackbar2.setCallback(new Snackbar.Callback() {
@@ -37,6 +44,7 @@ public class LoginActivity extends BaseActivity {
             public void onDismissed(Snackbar snackbar, int event) {
                 super.onDismissed(snackbar, event);
                 exitThis();
+                onClickChecker.undoPrevent("login");
             }
         });
         snackbar.setCallback(new Snackbar.Callback() {

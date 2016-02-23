@@ -20,6 +20,9 @@
     <color name="azusa_color">#1cb2b4</color>
     <color name="azusa_color_dark">#379799</color>
     <color name="azusa_color_pale">#8dd8d9</color>
+    <color name="facehub_1">#ff5d68</color>
+    <color name="facehub_alpha">#ccdf2837</color>
+    <color name="azusa_grey">#b1b1b1</color>
 
     <!-- 对比度：默认87%，最小54% -->
     <color name="text_main">#404040</color>

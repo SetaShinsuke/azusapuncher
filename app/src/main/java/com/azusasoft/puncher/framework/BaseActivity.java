@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.azusasoft.puncher.R;
@@ -90,5 +91,13 @@ public class BaseActivity extends AppCompatActivity implements SwipeBackActivity
         if(exitEvent.exitType.equals(ExitEvent.EXIT_TYPE.EXIT)){
             this.finish();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

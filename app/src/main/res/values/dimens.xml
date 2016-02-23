@@ -31,4 +31,7 @@
     <dimen name="logo_frame_thin">1dp</dimen>
     <dimen name="login_text_size">16sp</dimen>
     <dimen name="login_edit_text_margin">60dp</dimen>
+
+    <!-- 我发起的 -->
+    <dimen name="list_height_default">72dp</dimen>
 </resources>

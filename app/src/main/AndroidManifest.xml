@@ -37,7 +37,8 @@
 
         <!-- 申请记录 -->
         <activity android:name=".activities.LeaveHistoryActivity"
-            android:theme="@style/AppSlideTheme">
+            android:theme="@style/AppSlideTheme"
+            android:label="@string/i_started">
         </activity>
 
         <!-- 审核记录 -->

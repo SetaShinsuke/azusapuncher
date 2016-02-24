@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.azusasoft.puncher.R;
 import com.azusasoft.puncher.framework.BaseActivity;
+import com.azusasoft.puncher.utils.UtilMethod;
+import com.azusasoft.puncher.utils.ViewUtils;
 
 import static com.azusasoft.puncher.utils.UtilMethod.fastLog;
 
@@ -32,8 +34,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         this.context = this;
 
-        Intent intent = new Intent(this,VerifyHistoryActivity.class);
-        context.startActivity(intent);
+//        Intent intent = new Intent(this,VerifyHistoryActivity.class);
+//        context.startActivity(intent);
 
         setContentView(R.layout.activity_main);
         this.navigationView = (NavigationView) findViewById(R.id.left_drawer_container);
@@ -84,6 +86,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void onCardClick(View view){
         fastLog("click");
+        ViewUtils.snack(toolbar,"呵呵哒").show();
     }
 
     /**

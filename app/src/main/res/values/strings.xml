@@ -27,6 +27,12 @@
     <!-- 登录 -->
     <string name="account">账号</string>
     <string name="password">密码</string>
+    
+    <!-- 审核 -->
+    <string name="show_all">显示全部</string>
+    <string name="filter">筛选</string>
+    <string name="not_verified">待审核</string>
+    <string name="verified">已审核</string>
 
 
 </resources>

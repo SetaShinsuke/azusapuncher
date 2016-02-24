@@ -61,7 +61,7 @@ public class LeaveHistoryActivity extends BaseActivity {
 }
 
 /**
- * 发起的请假的Adapter
+ * 发起的请假/外勤的Adapter
  * */
 class LeaveHistoryAdapter extends RecyclerView.Adapter{
     private Context context;

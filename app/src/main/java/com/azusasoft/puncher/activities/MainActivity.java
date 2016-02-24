@@ -32,8 +32,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         this.context = this;
 
-//        Intent intent = new Intent(this,LeaveHistoryActivity.class);
-//        context.startActivity(intent);
+        Intent intent = new Intent(this,VerifyHistoryActivity.class);
+        context.startActivity(intent);
 
         setContentView(R.layout.activity_main);
         this.navigationView = (NavigationView) findViewById(R.id.left_drawer_container);

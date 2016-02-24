@@ -7,7 +7,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar" >
+        android:theme="@style/AppTheme.NoActionBar"
+        android:name=".framework.BaseApplication"
+        >
         <!-- 主页 -->
         <activity
             android:name=".activities.MainActivity"

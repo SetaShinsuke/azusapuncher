@@ -34,5 +34,8 @@
     <string name="not_verified">待审核</string>
     <string name="verified">已审核</string>
 
+    <!-- 申请 -->
+    <string name="send">提交</string>
+
 
 </resources>

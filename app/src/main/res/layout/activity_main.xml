@@ -55,7 +55,10 @@
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 app:fabSize="normal"
                 android:layout_gravity="bottom|center_horizontal" android:layout_margin="@dimen/main_padding"
-                android:src="@drawable/ic_hotel_white" />
+                android:src="@drawable/ic_hotel_white"
+                app:rippleColor="@color/colorPrimary"
+                android:onClick="onCardClick"
+                />
         </android.support.design.widget.CoordinatorLayout>
 
         <!-- 抽屉 -->

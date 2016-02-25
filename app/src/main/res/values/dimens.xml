@@ -18,6 +18,8 @@
     <dimen name="text_min">12sp</dimen>
     <dimen name="text_huge">64sp</dimen>
     <dimen name="text_mega">112sp</dimen>
+    <dimen name="text_spinner">14sp</dimen>
+    <dimen name="text_spinner_hint">14sp</dimen>
 
     <dimen name="list_margin">8dp</dimen>
     <dimen name="list_height">48dp</dimen>
@@ -34,4 +36,7 @@
 
     <!-- 我发起的 -->
     <dimen name="list_height_default">72dp</dimen>
+
+    <!-- 申请 -->
+    <dimen name="spinner_type_width">80dp</dimen>
 </resources>

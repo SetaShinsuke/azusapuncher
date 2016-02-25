@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:spinnerDropDownItemStyle">@style/mySpinnerDownItemStyle</item>
+        <item name="android:spinnerItemStyle">@style/mySpinnerItemStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar" >
@@ -47,6 +49,16 @@
         <item name="colorAccent">@color/azusa_color_pale</item>
     </style>
 
+    <!-- Spinner字体颜色 -->
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textSize">@dimen/text_spinner</item>
+        <item name="android:textColor">@color/text_main</item>
+    </style>
+    <!-- Spinner字体下拉颜色 -->
+    <style name="mySpinnerDownItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textSize">@dimen/text_spinner</item>
+        <item name="android:textColor">@color/text_main</item>
+    </style>
 
     <!-- RadiusLayout -->
     <style
@@ -109,4 +121,17 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <!-- 申请页表单 -->
+    <style name="new_leave_form_left">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">@color/text_main</item>
+        <item name="android:textSize">@dimen/text_spinner_hint</item>
+    </style>
+    <style name="new_leave_form_right">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical|end</item>
+    </style>
 </resources>

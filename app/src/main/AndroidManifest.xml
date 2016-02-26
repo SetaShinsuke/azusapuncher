@@ -35,8 +35,16 @@
         </activity>
 
         <!-- 外勤申请 -->
-        <activity android:name=".activities.NewOutDutyActivity"
-            android:theme="@style/AppSlideTheme">
+        <activity android:name=".activities.OutDutyActivity"
+            android:theme="@style/AppSlideTheme"
+            android:label="@string/new_out_duty"
+            >
+        </activity>
+        <!-- 外勤提交详情 -->
+        <activity android:name=".activities.OutFormActivity"
+            android:theme="@style/AppSlideTheme"
+            android:label="@string/out_detail">
+
         </activity>
 
         <!-- 申请记录 -->

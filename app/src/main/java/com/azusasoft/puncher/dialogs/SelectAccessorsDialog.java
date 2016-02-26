@@ -25,7 +25,7 @@ public class SelectAccessorsDialog extends DialogFragment {
         this.accessors = new ArrayList<>(accessors);
     }
 
-    public CharSequence[] getAccessors(){
+    private CharSequence[] getAccessors(){
         return accessors.toArray(new CharSequence[accessors.size()]);
     }
 

@@ -134,4 +134,37 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical|end</item>
     </style>
+    <style name="accessors_select_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLength">20</item>
+        <item name="android:textSize">@dimen/text_spinner</item>
+        <item name="android:textColor">@color/text_main</item>
+        <item name="android:textColorHint">@color/text_black_min</item>
+    </style>
+    <style name="reason_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:paddingLeft">@dimen/main_padding</item>-->
+        <!--<item name="android:paddingRight">@dimen/main_padding</item>-->
+        <item name="android:paddingTop">@dimen/main_padding</item>
+        <item name="android:paddingBottom">@dimen/main_margin</item>
+        <item name="android:text">理由:</item>
+        <item name="android:textColor">@color/text_main</item>
+    </style>
+    <style name="reason_edit">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:layout_marginLeft">@dimen/main_padding</item>-->
+        <!--<item name="android:layout_marginRight">@dimen/main_padding</item>-->
+        <item name="android:maxLength">@integer/reason_max_length</item>
+        <item name="android:textSize">@dimen/text_spinner_hint</item>
+        <item name="android:textColor">@color/text_main</item>
+        <item name="android:textColorHint">@color/text_black_min</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="android:hint">请输入理由</item>
+    </style>
 </resources>

@@ -108,40 +108,20 @@
                     />
                 <TextView
                     android:id="@+id/accessors_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:maxLength="20"
-                    android:textSize="@dimen/text_spinner"
-                    android:textColor="@color/text_main"
-                    android:textColorHint="@color/text_black_min"
+                    style="@style/accessors_select_text"
                     android:hint="请选择"
                     />
             </FrameLayout>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/reason_title"
                 android:paddingLeft="@dimen/main_padding"
                 android:paddingRight="@dimen/main_padding"
-                android:paddingTop="@dimen/main_padding"
-                android:paddingBottom="@dimen/main_margin"
-                android:text="理由:"
-                android:textColor="@color/text_main"
                 />
             <EditText
                 android:id="@+id/reason"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/reason_edit"
                 android:layout_marginLeft="@dimen/main_padding"
                 android:layout_marginRight="@dimen/main_padding"
-                android:maxLength="140"
-                android:textSize="@dimen/text_spinner_hint"
-                android:textColor="@color/text_main"
-                android:textColorHint="@color/text_black_min"
-                android:lineSpacingMultiplier="1.2"
-                android:hint="请输入理由"
                 />
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>

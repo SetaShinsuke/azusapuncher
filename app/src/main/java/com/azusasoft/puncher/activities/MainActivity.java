@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.azusasoft.puncher.R;
 import com.azusasoft.puncher.framework.BaseActivity;
-import com.azusasoft.puncher.utils.UtilMethod;
 import com.azusasoft.puncher.utils.ViewUtils;
 
 import static com.azusasoft.puncher.utils.UtilMethod.fastLog;
@@ -34,8 +33,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         this.context = this;
 
-//        Intent intent = new Intent(this,NewLeaveActivity.class);
-//        context.startActivity(intent);
+        //TODO:外勤中则直接打开外勤计时界面
+        Intent intent = new Intent(this,OutDutyActivity.class);
+        context.startActivity(intent);
 
         setContentView(R.layout.activity_main);
         this.navigationView = (NavigationView) findViewById(R.id.left_drawer_container);
@@ -126,7 +126,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 context.startActivity(intent);
                 return true;
             case R.id.new_out:
-                intent = new Intent(this,NewOutDutyActivity.class);
+                intent = new Intent(this,OutDutyActivity.class);
                 context.startActivity(intent);
                 return true;
             case R.id.i_started:

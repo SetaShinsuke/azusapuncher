@@ -40,4 +40,7 @@
     <!-- 申请 -->
     <dimen name="spinner_type_width">80dp</dimen>
     <dimen name="timer_ring_thick">2dp</dimen>
+    
+    <dimen name="status_circle_mini">20dp</dimen>
+    <dimen name="status_circle_mini_f">9dp</dimen>
 </resources>

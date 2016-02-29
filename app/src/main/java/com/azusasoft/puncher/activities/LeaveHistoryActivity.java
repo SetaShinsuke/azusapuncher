@@ -1,6 +1,7 @@
 package com.azusasoft.puncher.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,7 +55,11 @@ public class LeaveHistoryActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             int position = leaveListView.indexOfChild(v);
-            Snackbar.make(v,"点击条目"+position,Snackbar.LENGTH_SHORT).show();
+            Intent intent = new Intent(context,LeaveDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("isAdmin",false);
+            intent.putExtras(bundle);
+            context.startActivity(intent);
         }
     }
 

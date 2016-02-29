@@ -36,9 +36,12 @@
 
     <!-- 申请 -->
     <string name="send">提交</string>
+    <string name="pull_back">撤回</string>
     <string name="out_detail">外勤详情</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
+    <string name="agree">同意</string>
+    <string name="refuse">拒绝</string>
 
 
 </resources>

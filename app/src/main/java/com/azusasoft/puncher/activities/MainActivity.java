@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         this.context = this;
 
         //TODO:外勤中则直接打开外勤计时界面
-        Intent intent = new Intent(this,OutDutyActivity.class);
+        Intent intent = new Intent(this,OutFormActivity.class);
         context.startActivity(intent);
 
         setContentView(R.layout.activity_main);

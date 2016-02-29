@@ -76,10 +76,8 @@ public class OutDutyActivity extends BaseActivity {
     }
     //确认提交
     private void pauseOut() {
-        if (Build.VERSION.SDK_INT >= 21) {
             AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("外勤结束吗")
-//                    .setView(R.layout.notice_card)
+                .setTitle("外勤结束吗?")
                     .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -94,7 +92,6 @@ public class OutDutyActivity extends BaseActivity {
                     })
                     .create();
             dialog.show();
-        }
     }
     private void stopOut(){
         //TODO:停下计时器，显示提交详情
@@ -109,15 +106,4 @@ public class OutDutyActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    //选择审核者
-    public void onShowSelectAccessors(View view){
-        SelectAccessorsDialog dialog = new SelectAccessorsDialog();
-        ArrayList<String> accessors = new ArrayList<>();
-        accessors.add("卡罗特");
-        accessors.add("达尔");
-        accessors.add("比克");
-        accessors.add("撒旦");
-        dialog.setAccessors(accessors);
-        dialog.show(getSupportFragmentManager(), "");
-    }
 }

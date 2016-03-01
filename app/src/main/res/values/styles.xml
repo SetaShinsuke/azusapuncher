@@ -116,7 +116,7 @@
         <item name="android:layout_marginLeft">@dimen/login_edit_text_margin</item>
         <item name="android:layout_marginRight">@dimen/login_edit_text_margin</item>
         <item name="android:textColorHint">@color/text_black_min</item>
-        <item name="android:textColor">@color/card_text_btn</item>
+        <item name="android:textColor">@color/text_main</item>
         <item name="android:textSize">@dimen/login_text_size</item>
         <item name="android:singleLine">true</item>
     </style>

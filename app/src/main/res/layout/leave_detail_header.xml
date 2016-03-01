@@ -155,7 +155,7 @@
                 android:paddingBottom="@dimen/main_padding"
                 style="@style/reason_title"
                 android:lineSpacingMultiplier="1.4"
-                android:text="叽叽叽中葱，服哥打球，唐老师看海，倩倩炸了"
+                android:text="叽叽叽种葱，服哥打球，唐老师看海，倩倩炸了"
                 />
         </LinearLayout>
 

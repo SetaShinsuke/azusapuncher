@@ -12,6 +12,7 @@
     <color name="colorPrimaryPale">#7e57c2</color>
     <color name="colorPrimary300">#9575cd</color>
     <color name="colorAccent">#9575cd</color>
+    <color name="main_back">#f5f5f5</color>
     <!--<color name="colorAccent">#673ab7</color>-->
     <!--<color name="colorAccent">#4aa2f3</color>-->
 

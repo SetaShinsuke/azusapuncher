@@ -16,8 +16,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.azusasoft.puncher.R;
+import com.azusasoft.puncher.api.Status;
 import com.azusasoft.puncher.framework.BaseActivity;
 import com.azusasoft.puncher.utils.UtilMethod;
+
+import java.util.ArrayList;
 
 import static com.azusasoft.puncher.utils.UtilMethod.fastLog;
 
@@ -65,6 +68,11 @@ public class LeaveDetailActivity extends BaseActivity {
         View headerView = View.inflate(context , R.layout.leave_detail_header,null);
         timeline.addHeaderView( headerView );
         StatusTimelineAdapter adapter = new StatusTimelineAdapter(context);
+        ArrayList<Status> statuses = new ArrayList<>();
+        for(int i=0;i<15;i++){
+            statuses.add(new Status());
+        }
+        adapter.setStatuses(statuses);
         timeline.setAdapter( adapter );
     }
 
@@ -114,14 +122,20 @@ public class LeaveDetailActivity extends BaseActivity {
 
 class StatusTimelineAdapter extends BaseAdapter{
     private Context context;
+    private ArrayList<Status> statuses = new ArrayList<>();
 
     public StatusTimelineAdapter(Context context){
         this.context = context;
     }
 
+    public void setStatuses(ArrayList<Status> statuses){
+        this.statuses = new ArrayList<>(statuses);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
-        return 5;
+        return statuses.size();
     }
 
     @Override
@@ -149,13 +163,13 @@ class StatusTimelineAdapter extends BaseAdapter{
             convertView.setOnClickListener(null);
         }
         convertView.setVisibility(View.VISIBLE);
-        if(position==4){
+        if(position == statuses.size()-1 ){
             convertView.setVisibility(View.INVISIBLE);
             return convertView;
         }
         holder = (Holder)convertView.getTag();
         holder.lineBtm.setVisibility(View.VISIBLE);
-        if(position == 3){
+        if(position == statuses.size()-2){
             holder.lineBtm.setVisibility(View.GONE);
         }
         return convertView;

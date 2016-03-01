@@ -47,6 +47,7 @@
             style="@style/login_edit_text"
             android:layout_marginBottom="25dp"
             android:hint="@string/password"
+            android:password="true"
             />
         <Button
             android:layout_width="match_parent"

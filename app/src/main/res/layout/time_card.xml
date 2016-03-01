@@ -21,16 +21,19 @@
             android:background="@color/colorPrimary"
             >
             <TextView
+                android:id="@+id/year_month"
                 style="@style/time_card_text"
                 android:text="2016/10"
                 android:textSize="@dimen/text_subhead"
                 />
             <TextView
+                android:id="@+id/day"
                 style="@style/time_card_text"
                 android:text="23"
                 android:textSize="@dimen/text_display2"
                 />
             <TextView
+                android:id="@+id/weekday"
                 style="@style/time_card_text"
                 android:textSize="@dimen/text_subhead"
                 android:text="星期四"

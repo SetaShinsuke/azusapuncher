@@ -50,6 +50,41 @@ public class StringUtils {
         }
         return result;
     }
+
+    public static String getLastTimeHM(long start,long end){
+        String result = "";
+        long period = end - start;
+        if(period/1000/60/60>0){
+            result = formatS(String.format("%02d:",period/1000/60/60));
+        }else {
+            result = "00 ";
+        }
+        period = period%(1000*60*60);
+        if(period/1000/60>0){
+            result += formatS(String.format("%02d:", period / 1000 / 60));
+        }else {
+            result += "00";
+        }
+//        period = period%(1000*60);
+//        if(period/1000>0){
+//            result += formatS(String.format("%02d",period/1000));
+//        }else {
+//            result += "00";
+//        }
+        return result;
+    }
+    public static String getHour(long period){
+        return formatS(String.format("%02d",period/1000/60/60));
+    }
+    public static String getMinute(long period){
+        period = period%(1000*60*60);
+        return formatS(String.format("%02d",period/1000/60));
+    }
+    public static String getSecond(long period){
+        period = period%(1000*60);
+        return formatS(String.format("%02d",period/1000));
+    }
+
     private static String formatS( String s ){
         if(s.trim().length()<2){
             return "0"+s.trim();

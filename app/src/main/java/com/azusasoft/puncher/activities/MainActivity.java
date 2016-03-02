@@ -47,10 +47,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         this.context = this;
 
-        //TODO:外勤中则直接打开外勤计时界面
-//        Intent intent = new Intent(this,LeaveDetailActivity.class);
-//        context.startActivity(intent);
-
         setContentView(R.layout.activity_main);
         this.navigationView = (NavigationView) findViewById(R.id.left_drawer_container);
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -66,6 +62,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             @Override
             public void onResponse(Object response) {
                 setTime();
+                if(getApi().isAtWork()){
+                    startCount();
+                }
+                //外勤中则直接打开外勤计时界面
+                if( getApi().isOut() ){
+                    Intent intent = new Intent( context,OutDutyActivity.class);
+                    context.startActivity( intent );
+                }
             }
 
             @Override
@@ -103,16 +107,39 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }else { //已打卡
             enableViews();
             String text = StringUtils.getLastTime( getApi().getLastPunchTime() , System.currentTimeMillis());
-            timeText.setText( text );
-            startCount();
+            timeText.setText(text);
         }
     }
 
     public void onFabClick(View view){
+        //TODO:不能连接内网，阻止签到
+
         if( getApi().isAtWork() ){
             punchOff();
         }else {
+            //外勤中！
+            if( getApi().isOut() ){
+                new AlertDialog.Builder(context)
+                        .setTitle("请先结束外勤！")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(context,OutDutyActivity.class);
+                                context.startActivity( intent );
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }).create()
+                        .show();
+                return;
+            }
+
             punchOn();
+
         }
     }
     //打开

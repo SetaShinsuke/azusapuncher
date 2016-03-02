@@ -49,6 +49,9 @@ public class LeaveHistoryActivity extends BaseActivity {
         leaveListView.setLayoutManager(layoutManager);
         listAdapter.setOnClickListener(new OnListItemClick());
         listAdapter.setLeaves( UtilMethod.initData() );
+
+//        layoutManager.scrollToPosition( listAdapter.getItemCount()-1 );
+
     }
 
     class OnListItemClick implements View.OnClickListener{

@@ -65,6 +65,7 @@
             />
 
         <TextView
+            android:id="@+id/drawer_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_min"

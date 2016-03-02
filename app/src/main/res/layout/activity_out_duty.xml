@@ -88,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/text_display3"
-                        android:text="16 34"
+                        android:text="00 00"
                         />
                     <TextView
                         android:id="@+id/time_text_second"
@@ -100,7 +100,7 @@
                         android:layout_alignBottom="@id/time_text"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/text_display1"
-                        android:text=" 34"
+                        android:text=" 00"
                         />
                 </RelativeLayout>
             </FrameLayout>

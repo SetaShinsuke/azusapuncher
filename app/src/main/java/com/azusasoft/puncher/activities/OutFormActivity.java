@@ -2,6 +2,7 @@ package com.azusasoft.puncher.activities;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,8 +10,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.azusasoft.puncher.R;
+import com.azusasoft.puncher.api.PuncherApi;
+import com.azusasoft.puncher.api.ResultHandlerInterface;
 import com.azusasoft.puncher.dialogs.SelectAccessorsDialog;
+import com.azusasoft.puncher.events.StopOutTimerEvent;
 import com.azusasoft.puncher.framework.BaseActivity;
+import com.azusasoft.puncher.utils.Constants;
 import com.azusasoft.puncher.utils.StringUtils;
 import com.azusasoft.puncher.utils.UtilMethod;
 import com.azusasoft.puncher.utils.ViewUtils;
@@ -21,6 +26,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import de.greenrobot.event.EventBus;
+
+import static com.azusasoft.puncher.utils.Constants.isViewAnimating;
 import static com.azusasoft.puncher.utils.UtilMethod.fastLog;
 
 /**
@@ -75,8 +83,42 @@ public class OutFormActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==R.id.send){
+            if( isViewAnimating ){
+                return true;
+            }
+            isViewAnimating = true;
             ViewUtils.showSnack(toolbar, "提交中…");
             //TODO:提交申请
+            PuncherApi.getApi().endOut2Server(new ResultHandlerInterface() {
+                @Override
+                public void onResponse(Object response) {
+                    Snackbar snackbar = ViewUtils.snack( toolbar , "提交成功！" );
+                    snackbar.setCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            super.onDismissed(snackbar, event);
+                            StopOutTimerEvent stopOutTimerEvent = new StopOutTimerEvent();
+                            EventBus.getDefault().post( stopOutTimerEvent );
+                            finish();
+                            isViewAnimating = false;
+                        }
+                    });
+                    snackbar.show();
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    Snackbar snackbar = ViewUtils.snack( toolbar , "提交失败，请重试！" );
+                    snackbar.setCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            super.onDismissed(snackbar, event);
+                            isViewAnimating = false;
+                        }
+                    });
+                    snackbar.show();
+                }
+            });
         }
         return super.onOptionsItemSelected(item);
     }

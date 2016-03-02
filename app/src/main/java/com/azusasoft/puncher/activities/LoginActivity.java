@@ -32,7 +32,7 @@ public class LoginActivity extends BaseActivity {
 
 
     public void onLoginClick(View view){
-        //TODO:防止重复点击
+        //防止重复点击
         if( onClickChecker.isClickPrevent("login")){
             return;
         }

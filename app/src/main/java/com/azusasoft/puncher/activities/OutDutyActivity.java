@@ -17,6 +17,7 @@ import com.azusasoft.puncher.dialogs.SelectAccessorsDialog;
 import com.azusasoft.puncher.framework.BaseActivity;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 /**
  * Created by SETA on 2016/2/22.
@@ -29,6 +30,8 @@ import java.util.ArrayList;
 public class OutDutyActivity extends BaseActivity {
     private Context context;
     private Toolbar toolbar;
+
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

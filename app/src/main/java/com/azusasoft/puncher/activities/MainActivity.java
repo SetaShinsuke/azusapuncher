@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.azusasoft.puncher.R;
+import com.azusasoft.puncher.api.ResultHandlerInterface;
 import com.azusasoft.puncher.framework.BaseActivity;
 import com.azusasoft.puncher.utils.StringUtils;
 import com.azusasoft.puncher.utils.ViewUtils;
@@ -28,6 +29,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.azusasoft.puncher.api.PuncherApi.*;
 import static com.azusasoft.puncher.utils.UtilMethod.fastLog;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,8 +39,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
     private Timer timer;
-    private boolean isAtWork = false;
-    private long punchStartTime = 0;
+//    private boolean isAtWork = false;
+//    private long punchStartTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         initDrawerToggle();
 
         setDateCard();
+        getApi().checkAtWork(new ResultHandlerInterface() {
+            @Override
+            public void onResponse(Object response) {
+                setTime();
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
+    }
+
+    private void setDateCard(){
         //修改字体
         TextView timeText = (TextView) findViewById(R.id.time_text);
         Typeface robotoThin = Typeface.createFromAsset(context.getAssets(),
@@ -67,44 +83,33 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Typeface robotoRegular = Typeface.createFromAsset(context.getAssets(),
                 "fonts/Roboto-Regular.ttf");
         timeText.setTypeface(robotoThin);
-    }
 
-    private void setDateCard(){
         TextView yearMonthText = (TextView)findViewById(R.id.year_month);
         TextView dayText = (TextView)findViewById(R.id.day);
         TextView weekdayText = (TextView)findViewById(R.id.weekday);
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
         yearMonthText.setText(StringUtils.formDate(date, "yyyy年MM月"));
-        dayText.setText(StringUtils.formDate(date,"dd"));
+        dayText.setText(StringUtils.formDate(date, "dd"));
         weekdayText.setText(StringUtils.getDayOfWeek(calendar));
-        setTime();
     }
 
     private void setTime(){
         TextView timeText = (TextView)findViewById(R.id.time_text);
-        if(!isAtWork){
+        if(!getApi().isAtWork()){
             String text = "00:00:00";
             timeText.setText(text);
-            if(Build.VERSION.SDK_INT >= 23) {
-                timeText.setTextColor(getResources().getColor(R.color.text_black_min, getTheme()));
-            }else {
-                timeText.setTextColor(getResources().getColor(R.color.text_black_min));
-            }
-        }else {
-            if(Build.VERSION.SDK_INT >= 23) {
-                timeText.setTextColor(getResources().getColor(R.color.colorPrimary, getTheme()));
-            }else {
-                timeText.setTextColor(getResources().getColor(R.color.colorPrimary));
-            }
-            String text = StringUtils.getLastTime(punchStartTime, System.currentTimeMillis());
+            disableViews();
+        }else { //已打卡
+            enableViews();
+            String text = StringUtils.getLastTime( getApi().getLastPunchTime() , System.currentTimeMillis());
             timeText.setText( text );
-            fastLog("time count : " + text);
+            startCount();
         }
     }
 
     public void onFabClick(View view){
-        if(isAtWork){
+        if( getApi().isAtWork() ){
             punchOff();
         }else {
             punchOn();
@@ -112,43 +117,45 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
     //打开
     public void punchOn(){
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_hotel_white, context.getTheme()));
-        } else {
-            fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_hotel_white));
-        }
-        punchStartTime = System.currentTimeMillis();
-        isAtWork = true;
-        if(timer!=null){
-            timer.cancel();
-        }
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new CountTask(),100,1000);
+        getApi().punchOn2Server(new ResultHandlerInterface() {
+            @Override
+            public void onResponse(Object response) {
+                enableViews();
+                //打卡成功，开始计时
+                startCount();
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
     }
     //回家
     public void punchOff(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle("确定要签退吗？")
+                //确定签退
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_flight_white, context.getTheme()));
-                        } else {
-                            fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_flight_white));
-                        }
-                        timer.cancel();
-                        isAtWork = false;
-                        TextView timeText = (TextView)findViewById(R.id.time_text);
-                        if(Build.VERSION.SDK_INT >= 23) {
-                            timeText.setTextColor(getResources().getColor(R.color.text_black_min, getTheme()));
-                        }else {
-                            timeText.setTextColor(getResources().getColor(R.color.text_black_min));
-                        }
+
+                        getApi().punchOff2Server(new ResultHandlerInterface() {
+                            @Override
+                            public void onResponse(Object response) {
+                                //签退成功
+                                timer.cancel();
+                                disableViews();
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                //TODO:签退失败
+                            }
+                        });
                     }
                 })
+                //取消签退
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -156,6 +163,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     }
                 });
         builder.create().show();
+    }
+
+    private void startCount(){
+        if (timer != null) {
+            timer.cancel();
+        }
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new CountTask(), 100, 1000);
     }
 
     class CountTask extends TimerTask{
@@ -167,6 +182,39 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     setTime();
                 }
             });
+        }
+    }
+
+    private void enableViews(){
+        //字体变彩色
+        TextView timeText = (TextView)findViewById(R.id.time_text);
+        if(Build.VERSION.SDK_INT >= 23) {
+            timeText.setTextColor(getResources().getColor(R.color.colorPrimary, getTheme()));
+        }else {
+            timeText.setTextColor(getResources().getColor(R.color.colorPrimary));
+        }
+        //修改fab图标
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop_white, context.getTheme()));
+        } else {
+            fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop_white));
+        }
+    }
+    private void disableViews(){
+        //字体变灰
+        TextView timeText = (TextView)findViewById(R.id.time_text);
+        if(Build.VERSION.SDK_INT >= 23) {
+            timeText.setTextColor(getResources().getColor(R.color.text_black_min, getTheme()));
+        }else {
+            timeText.setTextColor(getResources().getColor(R.color.text_black_min));
+        }
+        //修改fab图标
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow, context.getTheme()));
+        } else {
+            fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow));
         }
     }
 
@@ -199,7 +247,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void onCardClick(View view){
         fastLog("click");
-        ViewUtils.snack(toolbar,"呵呵哒").show();
+        ViewUtils.snack(toolbar,"呵呵哒\n哟。").show();
     }
 
     /**
@@ -227,6 +275,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
+        //TODO:如果不是管理员，隐藏“我审核的”按钮
         return true;
     }
 

@@ -30,4 +30,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+    compile 'com.androidadvance:topsnackbar:0.0.9' //上方snackbar
 }

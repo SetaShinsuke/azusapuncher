@@ -20,6 +20,7 @@ public class User {
     public int sickLeave  = 0;
     public int otherLeave = 0;
     public boolean isLogin = false;
+    public boolean isAdmin = false;
 
     //恢复出用户id
     //TODO:用户是否登录？服务器判断？本地记录？

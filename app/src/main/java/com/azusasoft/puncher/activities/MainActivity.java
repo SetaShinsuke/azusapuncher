@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
@@ -17,10 +18,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.androidadvance.topsnackbar.TSnackbar;
 import com.azusasoft.puncher.R;
 import com.azusasoft.puncher.api.ResultHandlerInterface;
 import com.azusasoft.puncher.api.User;
+import com.azusasoft.puncher.events.ExitEvent;
 import com.azusasoft.puncher.framework.BaseActivity;
 import com.azusasoft.puncher.utils.Constants;
 import com.azusasoft.puncher.utils.StringUtils;
@@ -32,7 +36,10 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.greenrobot.event.EventBus;
+
 import static com.azusasoft.puncher.api.PuncherApi.*;
+import static com.azusasoft.puncher.utils.Constants.isViewAnimating;
 import static com.azusasoft.puncher.utils.UtilMethod.fastLog;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,7 +52,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        fastLog("onCreate0");
         super.onCreate(savedInstanceState);
+        fastLog("onCreate1");
         this.context = this;
 
         setContentView(R.layout.activity_main);
@@ -67,7 +76,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     Intent intent = new Intent(context, LoginActivity.class);
                     context.startActivity(intent);
                 }
-                setUserData();
+                setDrawerData();
 
                 if (getApi().isAtWork()) {
                     startCount();
@@ -91,7 +100,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return getResources().getString(id);
     }
 
-    private void setUserData(){
+    private void setDrawerData(){
         User user = getApi().getUser();
         String userName = getResources().getString(R.string.user_name_default);
         String userDetail = getResources().getString(R.string.user_detail_default);
@@ -99,10 +108,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             userName = user.name;
             userDetail = user.groupName + " " + user.position + " @ID:" + user.id;
         }
-        View header = navigationView.getHeaderView( 0 );
+        View header = navigationView.getHeaderView(0);
         if(header==null){
             return;
         }
+        //日期
+        Calendar c = Calendar.getInstance();
+        String s = StringUtils.formDate(c.getTime(), "yyyy年MM月 第" + StringUtils.num2Str(c.get(Calendar.WEEK_OF_MONTH)) + "周");
+        ((TextView) header.findViewById(R.id.drawer_date)).setText( s );
         ((TextView) header.findViewById(R.id.user_name)).setText(userName);
         ((TextView) header.findViewById(R.id.user_detail)).setText(userDetail);
 
@@ -112,9 +125,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         menu.findItem(R.id.late).setTitle( getStr(R.string.late) + space + user.late );
         menu.findItem(R.id.absent).setTitle( getStr(R.string.punch_false) + space + user.absent );
         menu.findItem(R.id.no_sign_off).setTitle( getStr(R.string.punch_out_false) + space + user.noSignOff );
-        menu.findItem(R.id.out).setTitle( getStr(R.string.out_duty) + space + user.out );
-        menu.findItem(R.id.sick_leave).setTitle( getStr(R.string.sick_leave) + space + user.sickLeave );
-        menu.findItem(R.id.other_leave).setTitle( getStr(R.string.personal_leave) + space + user.otherLeave );
+        menu.findItem(R.id.out).setTitle(getStr(R.string.out_duty) + space + user.out);
+        menu.findItem(R.id.sick_leave).setTitle(getStr(R.string.sick_leave) + space + user.sickLeave);
+        menu.findItem(R.id.other_leave).setTitle(getStr(R.string.personal_leave) + space + user.otherLeave);
     }
 
     private void setDateCard(){
@@ -150,7 +163,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     public void onFabClick(View view){
-        if(Constants.isViewAnimating ){
+        if(isViewAnimating ){
             return;
         }
         //TODO:不能连接内网，阻止签到
@@ -190,7 +203,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 enableViews();
                 //打卡成功，开始计时
                 startCount();
-                ViewUtils.showSnack( toolbar , "开始上班咯" );
+                Snackbar snackbar = ViewUtils.snack(toolbar, "开始上班咯");
+                snackbar.setCallback(new Snackbar.Callback() {
+                    @Override
+                    public void onDismissed(Snackbar snackbar, int event) {
+                        super.onDismissed(snackbar, event);
+                        isViewAnimating = false;
+                    }
+
+                    @Override
+                    public void onShown(Snackbar snackbar) {
+                        super.onShown(snackbar);
+                        isViewAnimating = true;
+                    }
+                });
+                snackbar.show();
             }
 
             @Override
@@ -318,6 +345,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         ViewUtils.snack(toolbar,"呵呵哒").show();
     }
 
+    public void onDrawerHeadClick(View view) {
+        TSnackbar snackbar = TSnackbar.make( navigationView ,"工时:20%  出勤:10%" , TSnackbar.LENGTH_SHORT);
+        snackbar.getView().setBackgroundColor( getResources().getColor(R.color.alpha));
+        snackbar.show();
+    }
+
     /**
      * 点击Drawer Menu
      * */
@@ -330,8 +363,47 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
         switch (item.getItemId()){
             case R.id.logout_btn:
-                Intent intent = new Intent(this,LoginActivity.class);
-                context.startActivity(intent);
+                if( getApi().isAtWork() || getApi().isOut() ){
+//                    Toast.makeText(context,"已打卡/外勤中不得退出！",Toast.LENGTH_LONG).show();
+                    Snackbar snackbar = ViewUtils.snack( navigationView,"已打卡/外勤中不得退出！" );
+                    snackbar.show();
+
+                }else {
+                    new AlertDialog.Builder(context)
+                            .setTitle("真的要下机？")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(context, LoginActivity.class);
+                                    context.startActivity(intent);
+                                }
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .create().show();
+                }
+                break;
+            case R.id.exit_btn:
+                new AlertDialog.Builder(context)
+                        .setTitle("确认退出吗？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ExitEvent event = new ExitEvent();
+                                EventBus.getDefault().post( event );
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .create().show();
                 break;
         }
         return true;
@@ -343,6 +415,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
+        fastLog("onCreateOptionsMenu.");
         //TODO:如果不是管理员，隐藏“我审核的”按钮
         return true;
     }

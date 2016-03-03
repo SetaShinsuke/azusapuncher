@@ -129,4 +129,13 @@ public class StringUtils {
         }
         return result;
     }
+
+
+    public static String num2Str( int num ){
+        String[] strings = {"一","二","三","四","五","六"};
+        if( num > strings.length-1){
+            return "?";
+        }
+        return strings[num];
+    }
 }

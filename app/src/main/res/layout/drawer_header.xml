@@ -36,6 +36,7 @@
             android:layout_marginLeft="@dimen/drawer_head_frame_size"
             android:layout_marginBottom="@dimen/main_margin"
             app:layout_radius="@dimen/fab_size"
+            android:onClick="onDrawerHeadClick"
             >
             <ImageView
                 android:id="@+id/days_progress"

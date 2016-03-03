@@ -58,7 +58,7 @@
         </android.support.design.widget.CoordinatorLayout>
 
         <!-- 抽屉 -->
-        <android.support.design.widget.NavigationView
+        <com.azusasoft.puncher.views.MainDrawer
             android:id="@+id/left_drawer_container"
             android:layout_width="290dp"
             android:layout_height="match_parent"
@@ -70,7 +70,7 @@
             <!--<include-->
             <!--layout="@layout/main_left_drawer"-->
             <!--/>-->
-        </android.support.design.widget.NavigationView>
+        </com.azusasoft.puncher.views.MainDrawer>
     </android.support.v4.widget.DrawerLayout>
 </RelativeLayout>
 

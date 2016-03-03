@@ -12,6 +12,8 @@ public class PuncherApi {
     static PuncherApi api;
     private LeaveApi leaveApi;
 
+    private User user;
+
     private boolean isAtWork = false;//是否打卡
     private boolean isOut    = false;//是否外勤中
     private long lastPunchTime = 0;//打卡时间-等效时间，根据服务器数据计算出来
@@ -20,6 +22,7 @@ public class PuncherApi {
 
     private PuncherApi(){
         this.leaveApi = new LeaveApi();
+        this.user = new User();
     }
 
     public static PuncherApi getApi(){
@@ -27,6 +30,10 @@ public class PuncherApi {
             api = new PuncherApi();
         }
         return api;
+    }
+
+    public User getUser(){
+        return this.user;
     }
 
     //登录
@@ -56,13 +63,18 @@ public class PuncherApi {
     }
 
     /**
-     * 打开应用后检测是否已打卡
-     * 若已打卡，则返回已打卡时间，并根据本地时间计算打卡时间
-     * 若未打卡，则检测是否外勤中——外勤中则记录外出开始时间,跳转到外勤计时界面
+     * 打开应用后检测
+     * 1.是否已登录;
+     *
+     * 2.登录后是否已打卡:
+     *      若已打卡，则返回已打卡时间，并根据本地时间计算打卡时间
+     *      若未打卡，则检测是否外勤中——外勤中则记录外出开始时间,跳转到外勤计时界面
      * TODO:需要知道 【本日已打卡时间】
      **/
-    public void checkAtWork(ResultHandlerInterface resultHandlerInterface){
+    public void sync(ResultHandlerInterface resultHandlerInterface){
         String response = "";
+        //是否登录、获取用户信息
+        user.restore();
         isAtWork  = false;
         isOut = false;
         resultHandlerInterface.onResponse( response );

@@ -43,4 +43,9 @@
     
     <dimen name="status_circle_mini">20dp</dimen>
     <dimen name="status_circle_mini_f">9dp</dimen>
+
+    <!-- 抽屉 -->
+    <dimen name="drawer_head_out_size">74dp</dimen>
+    <dimen name="drawer_head_size">68dp</dimen>
+    <dimen name="drawer_head_frame_size">3dp</dimen>
 </resources>

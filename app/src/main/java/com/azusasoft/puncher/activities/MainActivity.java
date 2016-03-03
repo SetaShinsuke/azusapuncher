@@ -20,9 +20,12 @@ import android.widget.TextView;
 
 import com.azusasoft.puncher.R;
 import com.azusasoft.puncher.api.ResultHandlerInterface;
+import com.azusasoft.puncher.api.User;
 import com.azusasoft.puncher.framework.BaseActivity;
+import com.azusasoft.puncher.utils.Constants;
 import com.azusasoft.puncher.utils.StringUtils;
 import com.azusasoft.puncher.utils.ViewUtils;
+import com.azusasoft.puncher.views.MainDrawer;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -34,13 +37,11 @@ import static com.azusasoft.puncher.utils.UtilMethod.fastLog;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Context context;
-    private NavigationView navigationView;
+    private MainDrawer navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
     private Timer timer;
-//    private boolean isAtWork = false;
-//    private long punchStartTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         this.context = this;
 
         setContentView(R.layout.activity_main);
-        this.navigationView = (NavigationView) findViewById(R.id.left_drawer_container);
+        this.navigationView = (MainDrawer) findViewById(R.id.left_drawer_container);
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -58,17 +59,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         initDrawerToggle();
 
         setDateCard();
-        getApi().checkAtWork(new ResultHandlerInterface() {
+        getApi().sync(new ResultHandlerInterface() {
             @Override
             public void onResponse(Object response) {
                 setTime();
-                if(getApi().isAtWork()){
+                if (!getApi().getUser().isLogin) { //没登录
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    context.startActivity(intent);
+                }
+                setUserData();
+
+                if (getApi().isAtWork()) {
                     startCount();
                 }
                 //外勤中则直接打开外勤计时界面
-                if( getApi().isOut() ){
-                    Intent intent = new Intent( context,OutDutyActivity.class);
-                    context.startActivity( intent );
+                if (getApi().isOut()) {
+                    Intent intent = new Intent(context, OutDutyActivity.class);
+                    context.startActivity(intent);
                 }
             }
 
@@ -77,6 +84,37 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             }
         });
+    }
+
+    private String getStr(int id){
+//        return String.format("%-10s" , getResources().getString(id) ).replace(" " , "a");
+        return getResources().getString(id);
+    }
+
+    private void setUserData(){
+        User user = getApi().getUser();
+        String userName = getResources().getString(R.string.user_name_default);
+        String userDetail = getResources().getString(R.string.user_detail_default);
+        if(user.isLogin) {
+            userName = user.name;
+            userDetail = user.groupName + " " + user.position + " @ID:" + user.id;
+        }
+        View header = navigationView.getHeaderView( 0 );
+        if(header==null){
+            return;
+        }
+        ((TextView) header.findViewById(R.id.user_name)).setText(userName);
+        ((TextView) header.findViewById(R.id.user_detail)).setText(userDetail);
+
+        String space = "    ";
+        Menu menu = navigationView.getMenu();
+        menu.findItem(R.id.day_at_work).setTitle( getStr(R.string.day_at_work) + space + user.dayAtWork );
+        menu.findItem(R.id.late).setTitle( getStr(R.string.late) + space + user.late );
+        menu.findItem(R.id.absent).setTitle( getStr(R.string.punch_false) + space + user.absent );
+        menu.findItem(R.id.no_sign_off).setTitle( getStr(R.string.punch_out_false) + space + user.noSignOff );
+        menu.findItem(R.id.out).setTitle( getStr(R.string.out_duty) + space + user.out );
+        menu.findItem(R.id.sick_leave).setTitle( getStr(R.string.sick_leave) + space + user.sickLeave );
+        menu.findItem(R.id.other_leave).setTitle( getStr(R.string.personal_leave) + space + user.otherLeave );
     }
 
     private void setDateCard(){
@@ -112,8 +150,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     public void onFabClick(View view){
+        if(Constants.isViewAnimating ){
+            return;
+        }
         //TODO:不能连接内网，阻止签到
-
         if( getApi().isAtWork() ){
             punchOff();
         }else {
@@ -150,6 +190,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 enableViews();
                 //打卡成功，开始计时
                 startCount();
+                ViewUtils.showSnack( toolbar , "开始上班咯" );
             }
 
             @Override
@@ -274,7 +315,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void onCardClick(View view){
         fastLog("click");
-        ViewUtils.snack(toolbar,"呵呵哒\n哟。").show();
+        ViewUtils.snack(toolbar,"呵呵哒").show();
     }
 
     /**

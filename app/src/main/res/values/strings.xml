@@ -9,17 +9,18 @@
     <!--<string name=""></string>-->
 
     <string name="hour_h">h</string>
-    <string name="user_name_default">张坚强</string>
+    <string name="user_name_default">请登录</string>
+    <string name="user_detail_default">划水组 划水大队长 @ID:2333</string>
 
     <!-- 抽屉菜单 -->
-    <string name="present_weekly">到勤天数</string>
-    <string name="punish_cash_weekly">本周累计罚款</string>
-    <string name="late">迟到</string>
+    <string name="day_at_work">到勤天数</string>
+    <string name="punish_cash">本月累计罚款</string>
+    <string name="late">迟到&#160;&#160;&#160;&#160;</string>
     <string name="punch_false">没打卡</string>
     <string name="punch_out_false">没签退</string>
-    <string name="out_duty">外勤</string>
-    <string name="sick_leave">病假</string>
-    <string name="personal_leave">事假</string>
+    <string name="out_duty">外勤&#160;&#160;&#160;&#160;</string>
+    <string name="sick_leave">病假&#160;&#160;&#160;&#160;</string>
+    <string name="personal_leave">事假&#160;&#160;&#160;&#160;</string>
     <string name="logout">切换账号</string>
     <string name="exit">退出应用</string>
     <!--<string name=""></string>-->

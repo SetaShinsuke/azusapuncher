@@ -31,6 +31,7 @@
     <color name="text_black_min">#9a9a9a</color>
 
     <color name="login_bkg">#f6f7f7</color>
+    <color name="grey">#aaaaaa</color>
 
 
 </resources>

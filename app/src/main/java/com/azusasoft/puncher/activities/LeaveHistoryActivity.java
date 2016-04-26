@@ -2,6 +2,7 @@ package com.azusasoft.puncher.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +25,8 @@ import com.azusasoft.puncher.utils.UtilMethod;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import static com.azusasoft.puncher.utils.UtilMethod.fastLog;
 
 /**
  * Created by SETA on 2016/2/22.
@@ -52,6 +55,8 @@ public class LeaveHistoryActivity extends BaseActivity {
         listAdapter.setOnClickListener(new OnListItemClick());
         listAdapter.setLeaves( UtilMethod.initData() );
 
+        final TextView logText = (TextView) findViewById(R.id.log);
+
 //        layoutManager.scrollToPosition( listAdapter.getItemCount()-1 );
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -65,6 +70,18 @@ public class LeaveHistoryActivity extends BaseActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 //Remove swiped item from list and notify the RecyclerView
                 Log.v("hehe","swipe : " + swipeDir);
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                logText.setText("onChildDraw : \ndx : " + dX + "\ndy : " + dY + "\nactionState : " + actionState + "\nisCurrentlyActive : " + isCurrentlyActive );
+                if(dX<-125){
+                    getDefaultUIUtil().onDraw(c,recyclerView
+                            , ((LeaveHistoryAdapter.LeaveListHolder)viewHolder).itemView
+                            , -125 , dY , actionState ,isCurrentlyActive);
+                }
+                //TODO:记录 dX , isCurrentlyActive 为 false时清除
             }
         };
 

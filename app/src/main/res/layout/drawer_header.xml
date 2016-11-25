@@ -13,14 +13,39 @@
         android:paddingTop="@dimen/main_padding"
         android:paddingBottom="@dimen/main_padding">
         <com.azusasoft.puncher.views.RadiusLayout
+            android:layout_width="@dimen/drawer_head_out_size"
+            android:layout_height="@dimen/drawer_head_out_size"
+            app:layout_radius="@dimen/fab_size"
+            android:background="@color/grey"
+            >
+            <ImageView
+                android:id="@+id/hours_progress"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:src="#aa000000"
+                />
+        </com.azusasoft.puncher.views.RadiusLayout>
+
+        <com.azusasoft.puncher.views.RadiusLayout
             android:id="@+id/drawer_header"
-            android:layout_width="@dimen/fab_size"
-            android:layout_height="@dimen/fab_size"
+            android:layout_width="@dimen/drawer_head_size"
+            android:layout_height="@dimen/drawer_head_size"
             android:background="@color/white"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="@dimen/drawer_head_frame_size"
+            android:layout_marginLeft="@dimen/drawer_head_frame_size"
             android:layout_marginBottom="@dimen/main_margin"
             app:layout_radius="@dimen/fab_size"
+            android:onClick="onDrawerHeadClick"
             >
+            <ImageView
+                android:id="@+id/days_progress"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:src="@color/azusa_color_pale"
+                />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -28,19 +53,12 @@
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/total_hour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_display1"
-                    android:textColor="@color/colorPrimary"
-                    android:gravity="center"
+                    style="@style/drawer_header_text"
                     android:text="40"
                     />
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="24sp"
-                    android:textColor="@color/colorPrimary"
-                    android:gravity="center"
+                    android:id="@+id/hour_h"
+                    style="@style/drawer_header_text.mini"
                     android:text="@string/hour_h" />
             </LinearLayout>
         </com.azusasoft.puncher.views.RadiusLayout>
@@ -59,12 +77,13 @@
             android:id="@+id/user_detail"
             style="@style/text_at_primary"
             android:textSize="@dimen/text_min"
-            android:text="划水组 划水大队长 @ID:2333"
+            android:text="@string/user_detail_default"
             android:alpha="0.7"
             android:layout_below="@id/user_name"
             />
 
         <TextView
+            android:id="@+id/drawer_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_min"

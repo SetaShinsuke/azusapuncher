@@ -21,9 +21,9 @@
                 android:title="@string/i_started"
                 />
             <item
-                android:id="@+id/i_examine"
-                android:title="@string/i_examine"
-                android:visible="false"
+                android:id="@+id/i_verified"
+                android:title="@string/i_verified"
+                android:visible="true"
                 />
         </menu>
     </item>

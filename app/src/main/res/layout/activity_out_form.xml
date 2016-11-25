@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:theme="@style/AppTheme.AppBarOverlay"
+                app:titleTextColor="@color/white" />
+        </android.support.design.widget.AppBarLayout>
+        <!-- 主要内容 -->
+        <LinearLayout
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <FrameLayout
+                android:id="@+id/start_time_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/main_padding"
+                >
+                <TextView
+                    style="@style/new_leave_form_left"
+                    android:text="开始时间:"
+                    />
+                <TextView
+                    android:id="@+id/start_time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="@dimen/text_spinner"
+                    android:textColor="@color/text_main"
+                    android:textColorHint="@color/text_black_min"
+                    />
+            </FrameLayout>
+            <FrameLayout
+                android:id="@+id/end_time_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/main_padding"
+                >
+                <TextView
+                    style="@style/new_leave_form_left"
+                    android:text="结束时间:"
+                    />
+                <TextView
+                    android:id="@+id/end_time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="@dimen/text_spinner"
+                    android:textColor="@color/text_main"
+                    android:textColorHint="@color/text_black_min"
+                    />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/main_padding"
+                >
+                <TextView
+                    style="@style/new_leave_form_left"
+                    android:text="时长:"
+                    />
+                <TextView
+                    android:id="@+id/last_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="@dimen/text_spinner"
+                    android:textColor="@color/text_main"
+                    android:textColorHint="@color/text_black_min"
+                    />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/accessors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onShowSelectAccessors"
+                android:padding="@dimen/main_padding"
+                >
+
+                <TextView
+                    style="@style/new_leave_form_left"
+                    android:text="审批人:" />
+
+                <TextView
+                    android:id="@+id/accessors_text"
+                    style="@style/accessors_select_text"
+                    android:hint="请选择" />
+            </FrameLayout>
+
+            <TextView
+                android:paddingLeft="@dimen/main_padding"
+                android:paddingRight="@dimen/main_padding"
+                style="@style/reason_title" />
+
+            <EditText
+                android:id="@+id/reason"
+                android:layout_marginLeft="@dimen/main_padding"
+                android:layout_marginRight="@dimen/main_padding"
+                style="@style/reason_edit" />
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

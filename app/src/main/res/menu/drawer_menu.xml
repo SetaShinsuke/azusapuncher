@@ -5,45 +5,54 @@
     >
 
     <!-- 本周概况 -->
-    <group android:id="@+id/summarize_group">
+    <group android:id="@+id/summarize_group"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/present_weekly"
-            android:title="@string/present_weekly"
+            android:id="@+id/day_at_work"
+            android:title="@string/day_at_work"
             android:icon="@drawable/ic_date_present_black"
             />
         <item
-            android:id="@+id/punish_cash_weekly"
-            android:title="@string/punish_cash_weekly"
+            android:id="@+id/punish_cash"
+            android:title="@string/punish_cash"
             android:icon="@drawable/ic_punish_black"
             />
     </group>
 
     <!-- 本周详情 -->
-    <group android:id="@+id/detail_group">
+    <group android:id="@+id/detail_group"
+        android:checkableBehavior="single">
         <item
+            android:id="@+id/late"
             android:title="@string/late"
             />
         <item
+            android:id="@+id/absent"
             android:title="@string/punch_false"
             />
         <item
+            android:id="@+id/no_sign_off"
             android:title="@string/punch_out_false"
             />
         <item
+            android:id="@+id/out"
             android:title="@string/out_duty"
             />
         <item
+            android:id="@+id/sick_leave"
             android:title="@string/sick_leave"
             />
         <item
+            android:id="@+id/other_leave"
             android:title="@string/personal_leave"
             />
     </group>
 
     <!-- 退出 -->
-    <group android:id="@+id/exit_group">
+    <group android:id="@+id/exit_group"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/logout_btn_btn"
+            android:id="@+id/logout_btn"
             android:title="@string/logout"
             android:icon="@drawable/ic_run"
             />

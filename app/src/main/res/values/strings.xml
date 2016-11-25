@@ -5,22 +5,44 @@
     <string name="new_leave">请假</string>
     <string name="new_out_duty">外勤</string>
     <string name="i_started">我发起的</string>
-    <string name="i_examine">我审核的</string>
+    <string name="i_verified">我审核的</string>
     <!--<string name=""></string>-->
 
     <string name="hour_h">h</string>
-    <string name="user_name_default">张坚强</string>
+    <string name="user_name_default">请登录</string>
+    <string name="user_detail_default">划水组 划水大队长 @ID:2333</string>
 
     <!-- 抽屉菜单 -->
-    <string name="present_weekly">到勤天数</string>
-    <string name="punish_cash_weekly">本周累计罚款</string>
-    <string name="late">迟到</string>
+    <string name="day_at_work">到勤天数</string>
+    <string name="punish_cash">本月累计罚款</string>
+    <string name="late">迟到&#160;&#160;&#160;&#160;</string>
     <string name="punch_false">没打卡</string>
-    <string name="punch_out_false">没打卡</string>
-    <string name="out_duty">外勤</string>
-    <string name="sick_leave">病假</string>
-    <string name="personal_leave">事假</string>
+    <string name="punch_out_false">没签退</string>
+    <string name="out_duty">外勤&#160;&#160;&#160;&#160;</string>
+    <string name="sick_leave">病假&#160;&#160;&#160;&#160;</string>
+    <string name="personal_leave">事假&#160;&#160;&#160;&#160;</string>
     <string name="logout">切换账号</string>
     <string name="exit">退出应用</string>
     <!--<string name=""></string>-->
+
+    <!-- 登录 -->
+    <string name="account">账号</string>
+    <string name="password">密码</string>
+    
+    <!-- 审核 -->
+    <string name="show_all">显示全部</string>
+    <string name="filter">筛选</string>
+    <string name="not_verified">待审核</string>
+    <string name="verified">已审核</string>
+
+    <!-- 申请 -->
+    <string name="send">提交</string>
+    <string name="pull_back">撤回</string>
+    <string name="out_detail">外勤详情</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="agree">同意</string>
+    <string name="refuse">拒绝</string>
+
+
 </resources>

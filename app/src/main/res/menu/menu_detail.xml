@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/undo"
+        android:icon="@drawable/ic_undo_white"
+        app:showAsAction="always"
+        android:title="@string/pull_back"
+        android:visible="false">
+    </item>
+    <item
+        android:id="@+id/refuse"
+        android:icon="@drawable/ic_close_white"
+        app:showAsAction="ifRoom"
+        android:title="@string/refuse">
+    </item>
+    <item
+        android:id="@+id/agree"
+        android:icon="@drawable/ic_check_white"
+        app:showAsAction="always"
+        android:title="@string/agree">
+    </item>
+</menu>
